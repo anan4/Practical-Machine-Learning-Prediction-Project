@@ -90,18 +90,18 @@ Will try 3 models: Stochastic gradient boosting trees, Random forest decision tr
 fitControl <- trainControl(method='cv', number=3)
 
 ## Stochastic gradient boosting trees
-#Model_gbm <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, method='gbm')
-#save(Model_gbm, file='ModelGBM.RData')
+Model_gbm <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, method='gbm')
+save(Model_gbm, file='ModelGBM.RData')
 
 ## Random forest decision trees
-#Model_rf <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, ntree=110, method='rf')
-#save(Model_rf, file='ModelRF.RData')
-## Plot RF
+Model_rf <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, ntree=110, method='rf')
+save(Model_rf, file='ModelRF.RData')
+
 
 
 ## Decision trees with CART
-#Model_cart <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, method='rpart')
-#save(model_cart, file='ModelCART.RData')
+Model_cart <- caret::train(Training$classe ~ ., data=Training[, c('classe', NonZeroCol_names)], trControl=fitControl, method='rpart')
+save(model_cart, file='ModelCART.RData')
 
 ```
 
@@ -109,16 +109,16 @@ fitControl <- trainControl(method='cv', number=3)
 
 ```{r}
 
-#predCART <- predict(model_cart, newdata=Testing)
-#cmCART <- confusionMatrix(predCART, Testing$classe)
-#predGBM <- predict(model_gbm, newdata=Testing)
-#cmGBM <- confusionMatrix(predGBM, Testing$classe)
-#predRF <- predict(model_rf, newdata=Testing)
-#cmRF <- confusionMatrix(predRF, Testing$classe)
+predCART <- predict(model_cart, newdata=Testing)
+cmCART <- confusionMatrix(predCART, Testing$classe)
+predGBM <- predict(model_gbm, newdata=Testing)
+cmGBM <- confusionMatrix(predGBM, Testing$classe)
+predRF <- predict(model_rf, newdata=Testing)
+cmRF <- confusionMatrix(predRF, Testing$classe)
 
-#AccuracyResults <- data.frame( Model = c('CART', 'GBM', 'RF'), Accuracy = rbind(cmCART$overall[1], cmGBM$overall[1], cmRF$overall[1]))
+AccuracyResults <- data.frame( Model = c('CART', 'GBM', 'RF'), Accuracy = rbind(cmCART$overall[1], cmGBM$overall[1], cmRF$overall[1]))
 
-#print(AccuracyResults)
+print(AccuracyResults)
 
 ```
 
@@ -127,10 +127,10 @@ fitControl <- trainControl(method='cv', number=3)
 Prediction using the Testing data downloaded from soure.
 ```{r}
 
-#Predict_Validation <- predict(champion_model, newdata=validation)
-#ValidationPredictions <- data.frame(problem_id = validation$problem_id, predicted = Predict_Validation)
+Predict_Validation <- predict(champion_model, newdata=validation)
+ValidationPredictions <- data.frame(problem_id = validation$problem_id, predicted = Predict_Validation)
 
-#print(ValidationPredictions)
+print(ValidationPredictions)
 
 ```
 
